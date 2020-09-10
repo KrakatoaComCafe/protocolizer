@@ -1,8 +1,8 @@
 package br.com.krakatoa.protocolizer.controller;
 
-import br.com.krakatoa.protocolizer.model.ProtocolMessage;
 import br.com.krakatoa.protocolizer.controller.dto.ProtocolMessageDto;
 import br.com.krakatoa.protocolizer.form.MessageForm;
+import br.com.krakatoa.protocolizer.model.ProtocolMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
