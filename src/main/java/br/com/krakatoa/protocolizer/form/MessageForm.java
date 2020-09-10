@@ -1,7 +1,9 @@
 package br.com.krakatoa.protocolizer.form;
 
 import br.com.krakatoa.protocolizer.model.ProtocolMessage;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,20 +11,15 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class MessageForm {
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String raw;
     private String terminal;
     private String merchant;
+    private String bitmap;
     private Integer terminalStartPosition;
     private Integer merchantStartPosition;
-
-    public MessageForm(String raw, String terminal, String merchant, Integer terminalStartPosition, Integer merchantStartPosition) {
-        this.raw = raw;
-        this.terminal = terminal;
-        this.merchant = merchant;
-        this.terminalStartPosition = terminalStartPosition;
-        this.merchantStartPosition = merchantStartPosition;
-    }
+    private Integer bitmapStartPosition;
 
     public ProtocolMessage toMessage() {
         return new ProtocolMessage(this);
