@@ -15,13 +15,9 @@ class ProtocolMessageTest {
 
         @Test
         void given() {
-            String expectedRaw = "ABCDEFABCDEFABCDEFABCDEFA";
+            String expectedRaw = "FFAAAAAAAAFFBBBBBBBBBBBBBFF";
             ProtocolMessage protocolMessage = ProtocolMessage.builder()
                     .raw(expectedRaw)
-                    .terminal("12345678")
-                    .terminalStartPosition(2)
-                    .merchant("123456789012")
-                    .merchantStartPosition(12)
                     .build();
 
             ProtocolMessageDto protocolMessageDto = protocolMessage.toDto();
@@ -36,13 +32,15 @@ class ProtocolMessageTest {
 
         @Test
         void given_MessageWithTerminalAndMerchant_When_UpdateRaw_Then_ReturnNewRaw() {
-            String expected = "A12345678DE123456789012FA";
+            String expected = "FFA94052125928425AFF12345678FF123456789012FF";
             ProtocolMessage protocolMessage = ProtocolMessage.builder()
-                    .raw("ABCDEFABCDEFABCDEFABCDEFA")
+                    .raw("FF0000000000000000FFAAAAAAAAFFBBBBBBBBBBBBFF")
+                    .bitmap("A94052125928425A")
+                    .originalBitmap("0000000000000000")
                     .terminal("12345678")
-                    .terminalStartPosition(2)
+                    .originalTerminal("AAAAAAAA")
                     .merchant("123456789012")
-                    .merchantStartPosition(12)
+                    .originalMerchant("BBBBBBBBBBBB")
                     .build();
 
             String rawMessage = protocolMessage.updateRaw();

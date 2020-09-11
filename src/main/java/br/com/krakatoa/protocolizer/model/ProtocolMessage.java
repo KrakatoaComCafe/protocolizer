@@ -15,30 +15,31 @@ public class ProtocolMessage {
     private String bitmap;
     private String terminal;
     private String merchant;
-    private Integer bitmapStartPosition;
-    private Integer terminalStartPosition;
-    private Integer merchantStartPosition;
+    private String originalBitmap;
+    private String originalTerminal;
+    private String originalMerchant;
 
     public ProtocolMessage(MessageForm messageForm) {
         this.raw = messageForm.getRaw();
         this.bitmap = messageForm.getBitmap();
         this.terminal = messageForm.getTerminal();
         this.merchant = messageForm.getMerchant();
-        this.bitmapStartPosition = messageForm.getBitmapStartPosition();
-        this.terminalStartPosition = messageForm.getTerminalStartPosition();
-        this.merchantStartPosition = messageForm.getMerchantStartPosition();
+        this.originalBitmap = messageForm.getOriginalBitmap();
+        this.originalTerminal = messageForm.getOriginalTerminal();
+        this.originalMerchant = messageForm.getOriginalMerchant();
     }
 
     public String updateRaw() {
         StringBuilder sb = new StringBuilder(this.raw);
 
-        int bitmapFinalPosition = this.bitmapStartPosition + this.bitmap.length() - 1;
-        int terminalFinalPosition = this.terminalStartPosition + this.terminal.length() - 1;
-        int merchantFinalPosition = this.merchantStartPosition + this.merchant.length() - 1;
+        int bitmapIndex = sb.indexOf(this.originalBitmap);
+        int terminalIndex = sb.indexOf(this.originalTerminal);
+        int merchantIndex = sb.indexOf(this.originalMerchant);
 
-        sb.replace(this.bitmapStartPosition - 1, bitmapFinalPosition, this.bitmap);
-        sb.replace(this.terminalStartPosition - 1, terminalFinalPosition, this.terminal);
-        sb.replace(this.merchantStartPosition - 1, merchantFinalPosition, this.merchant);
+        sb.replace(bitmapIndex, bitmapIndex+this.bitmap.length(), this.bitmap);
+        sb.replace(terminalIndex, terminalIndex+this.terminal.length(), this.terminal);
+        sb.replace(merchantIndex, merchantIndex+this.merchant.length(), this.merchant);
+
         this.raw = sb.toString();
         return this.raw;
     }
