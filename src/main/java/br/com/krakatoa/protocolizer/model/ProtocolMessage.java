@@ -2,13 +2,16 @@ package br.com.krakatoa.protocolizer.model;
 
 import br.com.krakatoa.protocolizer.controller.dto.ProtocolMessageDto;
 import br.com.krakatoa.protocolizer.form.MessageForm;
+import br.com.krakatoa.protocolizer.format.MessageFormat;
+import br.com.krakatoa.protocolizer.format.MessageFormatFactory;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class ProtocolMessage {
 
     private String raw;
@@ -18,6 +21,7 @@ public class ProtocolMessage {
     private String originalBitmap;
     private String originalTerminal;
     private String originalMerchant;
+    private final MessageFormat messageFormat;
 
     public ProtocolMessage(MessageForm messageForm) {
         this.raw = messageForm.getRaw();
@@ -27,20 +31,20 @@ public class ProtocolMessage {
         this.originalBitmap = messageForm.getOriginalBitmap();
         this.originalTerminal = messageForm.getOriginalTerminal();
         this.originalMerchant = messageForm.getOriginalMerchant();
+        this.messageFormat = MessageFormatFactory.get(messageForm.getFormat());
     }
 
     public String updateRaw() {
-        StringBuilder sb = new StringBuilder(this.raw);
+        String originalMessageTerminal = this.messageFormat.execute(this.originalTerminal);
+        String originalMessageMerchant = this.messageFormat.execute(this.originalMerchant);
 
-        int bitmapIndex = sb.indexOf(this.originalBitmap);
-        int terminalIndex = sb.indexOf(this.originalTerminal);
-        int merchantIndex = sb.indexOf(this.originalMerchant);
+        String newMessageTerminal = this.messageFormat.execute(this.terminal);
+        String newMessageMerchant = this.messageFormat.execute(this.merchant);
 
-        sb.replace(bitmapIndex, bitmapIndex+this.bitmap.length(), this.bitmap);
-        sb.replace(terminalIndex, terminalIndex+this.terminal.length(), this.terminal);
-        sb.replace(merchantIndex, merchantIndex+this.merchant.length(), this.merchant);
+        this.raw = this.raw.replace(this.originalBitmap, this.bitmap);
+        this.raw = this.raw.replace(originalMessageTerminal, newMessageTerminal);
+        this.raw = this.raw.replace(originalMessageMerchant, newMessageMerchant);
 
-        this.raw = sb.toString();
         return this.raw;
     }
 

@@ -1,5 +1,6 @@
 package br.com.krakatoa.protocolizer.form;
 
+import br.com.krakatoa.protocolizer.format.Format;
 import br.com.krakatoa.protocolizer.model.ProtocolMessage;
 import lombok.Getter;
 
@@ -18,6 +19,7 @@ public class MessageForm {
     private String originalTerminal;
     private String originalMerchant;
     private String originalBitmap;
+    private Format format;
 
     public ProtocolMessage toMessage() {
         return new ProtocolMessage(this);
