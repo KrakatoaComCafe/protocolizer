@@ -1,7 +1,7 @@
 package br.com.krakatoa.protocolizer.form;
 
-import br.com.krakatoa.protocolizer.model.Field;
-import br.com.krakatoa.protocolizer.model.Protocol;
+import br.com.krakatoa.protocolizer.repository.field.Field;
+import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

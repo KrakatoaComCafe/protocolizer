@@ -3,7 +3,6 @@ package br.com.krakatoa.protocolizer.controller;
 import br.com.krakatoa.protocolizer.form.BitmapForm;
 import br.com.krakatoa.protocolizer.form.MapOfBitsForm;
 import br.com.krakatoa.protocolizer.service.ConverterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +16,11 @@ import java.util.Map;
 @RequestMapping("/bitmap")
 public class BitmapController {
 
-    @Autowired
-    private ConverterService converterService;
+    private final ConverterService converterService;
+
+    public BitmapController(ConverterService converterService) {
+        this.converterService = converterService;
+    }
 
     @PostMapping("/tojson")
     @ResponseBody

@@ -1,13 +1,24 @@
 package br.com.krakatoa.protocolizer.service;
 
-import org.springframework.stereotype.Service;
-
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-@Service
 public class ConverterService {
+
+    private static final String NAME_FORMAT = "Field%03d";
+
+    public List<String> hexToListOfBitmapPresent(String bitMapInHex) {
+        String binaryBitmap = this.hexToBinary(bitMapInHex);
+        return this.binaryToListOfBitmapPresent(binaryBitmap);
+    }
+
+    public Map<String, Boolean> hexToMapOfBits(String bitMapInHex) {
+        String binaryBitmap = this.hexToBinary(bitMapInHex);
+        return this.binaryToMap(binaryBitmap);
+    }
 
     public String hexToBinary(String hexBitmap) {
         String value = new BigInteger(hexBitmap, 16).toString(2);
@@ -17,15 +28,24 @@ public class ConverterService {
     }
 
     public Map<String, Boolean> binaryToMap(String binaryBitmap) {
-        String format = "field%03d";
         Map<String, Boolean> bitmap = new TreeMap<>();
         for (int i = 0; i < binaryBitmap.length(); i++) {
             char currentChar = binaryBitmap.charAt(i);
 
-            bitmap.put(String.format(format, i + 1), currentChar == '1');
+            bitmap.put(String.format(NAME_FORMAT, i + 1), currentChar == '1');
         }
 
         return bitmap;
+    }
+
+    public List<String> binaryToListOfBitmapPresent(String binaryBitmap) {
+        List<String> presentFieldList = new ArrayList<>();
+        for (int i = 0; i < binaryBitmap.length(); i++) {
+            char bit = binaryBitmap.charAt(i);
+            if (bit == '1') presentFieldList.add(String.format(NAME_FORMAT, i + 1));
+        }
+
+        return presentFieldList;
     }
 
     public String mapToBinary(Map<String, Boolean> bitmap) {

@@ -1,4 +1,4 @@
-package br.com.krakatoa.protocolizer.format;
+package br.com.krakatoa.protocolizer.format.encoding;
 
 public class MessageFormatFactory {
 
@@ -8,8 +8,8 @@ public class MessageFormatFactory {
 
     }
 
-    public static MessageFormat get(Format format) {
-        switch (format) {
+    public static MessageFormat get(Encoding encoding) {
+        switch (encoding) {
             case ASCII:
                 return new ASCIIMessageFormat();
             default:

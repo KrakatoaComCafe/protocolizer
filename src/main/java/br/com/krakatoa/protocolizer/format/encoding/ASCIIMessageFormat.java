@@ -1,4 +1,4 @@
-package br.com.krakatoa.protocolizer.format;
+package br.com.krakatoa.protocolizer.format.encoding;
 
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.buf.HexUtils;
