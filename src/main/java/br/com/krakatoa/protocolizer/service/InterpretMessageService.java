@@ -9,17 +9,17 @@ import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MessageService {
+public class InterpretMessageService {
 
     private final ProtocolDataProvider protocolDataProvider;
     private final ConverterService converterService;
 
-    public MessageService(ProtocolDataProvider protocolDataProvider, ConverterService converterService) {
+    public InterpretMessageService(ProtocolDataProvider protocolDataProvider, ConverterService converterService) {
         this.protocolDataProvider = protocolDataProvider;
         this.converterService = converterService;
     }
 
-    public MessageDTO interpretMessage(MessageForm messageForm) {
+    public MessageDTO interpret(MessageForm messageForm) {
         List<String> fieldList = this.converterService.hexToListOfBitmapPresent(messageForm.getBitmap());
 
         Protocol protocol = this.protocolDataProvider.findOneByNameAndVersion(messageForm.getProtocol(), messageForm.getVersion());

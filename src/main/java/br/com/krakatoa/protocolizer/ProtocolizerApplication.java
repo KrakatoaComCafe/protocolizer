@@ -2,7 +2,7 @@ package br.com.krakatoa.protocolizer;
 
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
 import br.com.krakatoa.protocolizer.service.ConverterService;
-import br.com.krakatoa.protocolizer.service.MessageService;
+import br.com.krakatoa.protocolizer.service.InterpretMessageService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +19,8 @@ public class ProtocolizerApplication {
     }
 
     @Bean
-    public MessageService messageServiceBean(ProtocolDataProvider protocolDataProvider, ConverterService converterService) {
-        return new MessageService(protocolDataProvider, converterService);
+    public InterpretMessageService messageServiceBean(ProtocolDataProvider protocolDataProvider, ConverterService converterService) {
+        return new InterpretMessageService(protocolDataProvider, converterService);
     }
 
     @Bean

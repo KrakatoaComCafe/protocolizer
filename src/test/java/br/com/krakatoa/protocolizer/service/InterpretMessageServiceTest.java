@@ -16,19 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class MessageServiceTest {
+class InterpretMessageServiceTest {
 
     @Nested
-    class InterpretMessageTest {
+    class InterpretTest {
 
         private final ProtocolDataProvider protocolDataProvider;
         private final ConverterService converterService;
-        private final MessageService messageService;
+        private final InterpretMessageService interpretMessageService;
 
-        InterpretMessageTest() {
+        InterpretTest() {
             this.protocolDataProvider = mock(ProtocolDataProvider.class);
             this.converterService = mock(ConverterService.class);
-            this.messageService = new MessageService(this.protocolDataProvider, this.converterService);
+            this.interpretMessageService = new InterpretMessageService(this.protocolDataProvider, this.converterService);
         }
 
         @Test
@@ -71,7 +71,7 @@ class MessageServiceTest {
                     .thenReturn("Field002")
                     .thenReturn("Field004");
 
-            MessageDTO messageDTO = this.messageService.interpretMessage(messageForm);
+            MessageDTO messageDTO = this.interpretMessageService.interpret(messageForm);
 
             assertNotNull(messageDTO);
             assertEquals("A ISO 8583 look alike", messageDTO.getProtocol());
