@@ -1,15 +1,21 @@
 package br.com.krakatoa.protocolizer.form;
 
-import br.com.krakatoa.protocolizer.model.Field;
-import br.com.krakatoa.protocolizer.model.Protocol;
+import br.com.krakatoa.protocolizer.repository.field.Field;
+import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProtocolForm {
 
+    @NotNull
+    @NotEmpty
     private String name;
+    @NotNull
+    @NotEmpty
     private String version;
     private String encoding;
     private Map<String, FieldForm> fields;

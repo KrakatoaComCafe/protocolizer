@@ -1,27 +1,26 @@
 package br.com.krakatoa.protocolizer.form;
 
-import br.com.krakatoa.protocolizer.format.Format;
-import br.com.krakatoa.protocolizer.model.ProtocolMessage;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@AllArgsConstructor
 public class MessageForm {
 
     @NotNull
     @NotEmpty
-    private String raw;
-    private String terminal;
-    private String merchant;
+    private String protocol;
+    @NotNull
+    @NotEmpty
+    private String version;
+    private String encoding;
+    @NotNull
+    @NotEmpty
     private String bitmap;
-    private String originalTerminal;
-    private String originalMerchant;
-    private String originalBitmap;
-    private Format format;
-
-    public ProtocolMessage toMessage() {
-        return new ProtocolMessage(this);
-    }
+    @NotNull
+    @NotEmpty
+    private String raw;
 }

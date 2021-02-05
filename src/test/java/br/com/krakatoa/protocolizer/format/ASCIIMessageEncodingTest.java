@@ -1,14 +1,16 @@
 package br.com.krakatoa.protocolizer.format;
 
+import br.com.krakatoa.protocolizer.format.encoding.ASCIIMessageFormat;
+import br.com.krakatoa.protocolizer.format.encoding.MessageFormat;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ASCIIMessageFormatTest {
+class ASCIIMessageEncodingTest {
 
     private final MessageFormat messageFormat;
 
-    public ASCIIMessageFormatTest() {
+    public ASCIIMessageEncodingTest() {
         this.messageFormat = new ASCIIMessageFormat();
     }
 

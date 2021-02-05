@@ -1,4 +1,4 @@
-package br.com.krakatoa.protocolizer.format;
+package br.com.krakatoa.protocolizer.format.encoding;
 
 public interface MessageFormat {
 
