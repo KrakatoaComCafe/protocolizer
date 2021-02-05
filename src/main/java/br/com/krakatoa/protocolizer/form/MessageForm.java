@@ -1,5 +1,6 @@
 package br.com.krakatoa.protocolizer.form;
 
+import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,15 +13,15 @@ public class MessageForm {
 
     @NotNull
     @NotEmpty
-    private String protocol;
+    private final String protocol;
     @NotNull
     @NotEmpty
-    private String version;
-    private String encoding;
+    private final String version;
+    private final Encoding encoding;
     @NotNull
     @NotEmpty
-    private String bitmap;
+    private final String bitmap;
     @NotNull
     @NotEmpty
-    private String raw;
+    private final String rawData;
 }

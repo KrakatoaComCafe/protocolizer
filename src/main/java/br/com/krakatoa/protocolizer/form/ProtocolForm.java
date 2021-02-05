@@ -1,5 +1,6 @@
 package br.com.krakatoa.protocolizer.form;
 
+import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import br.com.krakatoa.protocolizer.repository.field.Field;
 import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
 
@@ -13,14 +14,14 @@ public class ProtocolForm {
 
     @NotNull
     @NotEmpty
-    private String name;
+    private final String name;
     @NotNull
     @NotEmpty
-    private String version;
-    private String encoding;
-    private Map<String, FieldForm> fields;
+    private final String version;
+    private final Encoding encoding;
+    private final Map<String, FieldForm> fields;
 
-    public ProtocolForm(String name, String version, String encoding, Map<String, FieldForm> fields) {
+    public ProtocolForm(String name, String version, Encoding encoding, Map<String, FieldForm> fields) {
         this.name = name;
         this.version = version;
         this.encoding = encoding;
