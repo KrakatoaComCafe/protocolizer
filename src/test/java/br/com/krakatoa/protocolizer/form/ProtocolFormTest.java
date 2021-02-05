@@ -1,5 +1,6 @@
 package br.com.krakatoa.protocolizer.form;
 
+import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import br.com.krakatoa.protocolizer.repository.field.Field;
 import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class ProtocolFormTest {
     void given_ProtocolForm_When_ConvertToProtocol_Then_ReturnProtocol() {
         String name = "Some Crazy Ass Protocol";
         String version = "21.1";
-        String encoding = "EBCDIC";
+        Encoding encoding = Encoding.ASCII;
 
         HashMap<String, FieldForm> fieldFormMap = new HashMap<>();
         FieldForm fieldForm = Mockito.mock(FieldForm.class);
@@ -30,7 +31,7 @@ class ProtocolFormTest {
         assertNotNull(protocol);
         assertEquals("Some Crazy Ass Protocol", protocol.getName());
         assertEquals("21.1", protocol.getVersion());
-        assertEquals("EBCDIC", protocol.getEncoding());
+        assertEquals(Encoding.ASCII, protocol.getEncoding());
         List<Field> fieldList = protocol.getFields();
         assertNotNull(fieldList);
         assertEquals(2, fieldList.size());

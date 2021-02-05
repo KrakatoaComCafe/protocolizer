@@ -2,6 +2,7 @@ package br.com.krakatoa.protocolizer.service;
 
 import br.com.krakatoa.protocolizer.controller.dto.message.MessageDTO;
 import br.com.krakatoa.protocolizer.form.MessageForm;
+import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import br.com.krakatoa.protocolizer.repository.field.Field;
 import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
@@ -37,7 +38,7 @@ class InterpretMessageServiceTest {
             String protocolVersion = "21.1";
             String bitmap = "5000000000000000";
             String rawMessage = "12345123";
-            String encoding = "ASCII";
+            Encoding encoding = Encoding.ASCII;
             MessageForm messageForm = mock(MessageForm.class);
             List<String> fieldList = Arrays.asList("Field002", "Field004");
             Protocol protocol = mock(Protocol.class);
@@ -56,7 +57,7 @@ class InterpretMessageServiceTest {
                     .thenReturn(protocol);
             when(protocol.getFields())
                     .thenReturn(protocolFields);
-            when(messageForm.getRaw())
+            when(messageForm.getRawData())
                     .thenReturn(rawMessage);
             when(messageForm.getEncoding())
                     .thenReturn(encoding);
@@ -77,7 +78,7 @@ class InterpretMessageServiceTest {
             assertEquals("A ISO 8583 look alike", messageDTO.getProtocol());
             assertEquals("21.1", messageDTO.getVersion());
             assertEquals("5000000000000000", messageDTO.getBitmap());
-            assertEquals("ASCII", messageDTO.getEncoding());
+            assertEquals(Encoding.ASCII, messageDTO.getEncoding());
             assertNotNull(messageDTO.getFields());
             assertEquals(2, messageDTO.getFields().size());
             assertEquals("12345", messageDTO.getFieldValues().get(0));

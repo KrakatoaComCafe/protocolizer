@@ -1,6 +1,7 @@
 package br.com.krakatoa.protocolizer.controller.dto.message;
 
 import br.com.krakatoa.protocolizer.form.MessageForm;
+import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import br.com.krakatoa.protocolizer.repository.field.Field;
 import lombok.Getter;
 
@@ -13,7 +14,7 @@ public class MessageDTO {
 
     private final String protocol;
     private final String version;
-    private final String encoding;
+    private final Encoding encoding;
     private final String bitmap;
     private final List<FieldDTO> fields;
 
@@ -23,7 +24,7 @@ public class MessageDTO {
         this.encoding = messageForm.getEncoding();
         this.bitmap = messageForm.getBitmap();
         this.fields = new ArrayList<>();
-        this.insertFieldToList(messageForm.getRaw(), fields);
+        this.insertFieldToList(messageForm.getRawData(), fields);
     }
 
     private void insertFieldToList(String raw, List<Field> fields) {

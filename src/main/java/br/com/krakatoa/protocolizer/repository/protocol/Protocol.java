@@ -1,5 +1,6 @@
 package br.com.krakatoa.protocolizer.repository.protocol;
 
+import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import br.com.krakatoa.protocolizer.repository.field.Field;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -8,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +28,8 @@ public class Protocol {
     private Long id;
     private String name;
     private String version;
-    private String encoding;
+    @Enumerated(EnumType.STRING)
+    private Encoding encoding;
     @OneToMany(mappedBy = "protocol", cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
     private List<Field> fields = new ArrayList<>();
@@ -33,7 +37,7 @@ public class Protocol {
     public Protocol() {
     }
 
-    public Protocol(String name, String version, String encoding) {
+    public Protocol(String name, String version, Encoding encoding) {
         this.name = name;
         this.version = version;
         this.encoding = encoding;
