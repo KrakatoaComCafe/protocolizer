@@ -7,6 +7,4 @@ import java.util.List;
 public interface ProtocolRepository extends JpaRepository<Protocol, Long> {
 
     Protocol findOneByNameAndVersion(String name, String version);
-
-    List<Protocol> findByName(String name);
 }

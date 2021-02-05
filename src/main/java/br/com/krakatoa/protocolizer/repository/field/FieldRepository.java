@@ -6,5 +6,4 @@ import java.util.List;
 
 //todo change name to EntityRepository
 public interface FieldRepository extends JpaRepository<Field, Long> {
-    List<Field> findAllByProtocolId(Long id);
 }

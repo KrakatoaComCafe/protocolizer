@@ -15,10 +15,6 @@ public class FieldDataProvider {
         this.fieldRepository = fieldRepository;
     }
 
-    public Field save(Field field) {
-        return this.fieldRepository.save(field);
-    }
-
     public List<Field> saveAll(List<Field> fields) {
         return this.fieldRepository.saveAll(fields);
     }
