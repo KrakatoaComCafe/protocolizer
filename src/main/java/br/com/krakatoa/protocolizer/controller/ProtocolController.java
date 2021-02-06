@@ -54,7 +54,7 @@ public class ProtocolController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Protocol> getAllProtocol(@PathVariable Long id) {
+    public ResponseEntity<Protocol> getProtocolById(@PathVariable Long id) {
         Optional<Protocol> optProtocol = this.protocolDataProvider.findById(id);
         return optProtocol
                 .map(ResponseEntity::ok)
