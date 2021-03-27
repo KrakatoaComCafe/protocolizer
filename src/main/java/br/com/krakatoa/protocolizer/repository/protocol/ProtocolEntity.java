@@ -1,7 +1,7 @@
 package br.com.krakatoa.protocolizer.repository.protocol;
 
 import br.com.krakatoa.protocolizer.format.encoding.Encoding;
-import br.com.krakatoa.protocolizer.repository.field.Field;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
@@ -15,13 +15,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
-public class Protocol {
+@Table(name="protocol")
+public class ProtocolEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +34,14 @@ public class Protocol {
     private Encoding encoding;
     @OneToMany(mappedBy = "protocol", cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
-    private List<Field> fields = new ArrayList<>();
+    private List<FieldEntity> fieldEntityEntities = new ArrayList<>();
 
-    public Protocol() {
+    public ProtocolEntity() {
     }
 
-    public Protocol(String name, String version, Encoding encoding) {
+    public ProtocolEntity(String name, String version, Encoding encoding) {
         this.name = name;
         this.version = version;
         this.encoding = encoding;
     }
-
 }

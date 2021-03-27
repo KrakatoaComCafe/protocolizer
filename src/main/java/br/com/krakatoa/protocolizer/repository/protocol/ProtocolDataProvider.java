@@ -12,19 +12,19 @@ public class ProtocolDataProvider {
     @Autowired
     private ProtocolRepository protocolRepository;
 
-    public Protocol save(Protocol protocol) {
-        return this.protocolRepository.save(protocol);
+    public ProtocolEntity save(ProtocolEntity protocolEntity) {
+        return this.protocolRepository.save(protocolEntity);
     }
 
-    public Protocol findOneByNameAndVersion(String name, String version) {
+    public ProtocolEntity findOneByNameAndVersion(String name, String version) {
         return this.protocolRepository.findOneByNameAndVersion(name, version);
     }
 
-    public Optional<Protocol> findById(Long id) {
+    public Optional<ProtocolEntity> findById(Long id) {
         return this.protocolRepository.findById(id);
     }
 
-    public List<Protocol> findAll() {
+    public List<ProtocolEntity> findAll() {
         return this.protocolRepository.findAll();
     }
 }

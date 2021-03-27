@@ -2,7 +2,7 @@ package br.com.krakatoa.protocolizer.controller;
 
 import br.com.krakatoa.protocolizer.form.ProtocolForm;
 import br.com.krakatoa.protocolizer.repository.field.FieldDataProvider;
-import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,27 +35,27 @@ public class ProtocolController {
     @Transactional
     public ResponseEntity<Long> createProtocol(@RequestBody @Valid ProtocolForm protocolForm) {
 
-        Protocol protocol = protocolForm.convertToProtocol();
+        ProtocolEntity protocolEntity = protocolForm.convertToProtocol();
 
         //todo use json format in H2
-        this.protocolDataProvider.save(protocol);
-        this.fieldDataProvider.saveAll(protocol.getFields());
+        this.protocolDataProvider.save(protocolEntity);
+        this.fieldDataProvider.saveAll(protocolEntity.getFieldEntityEntities());
 
-        return ResponseEntity.ok(protocol.getId());
+        return ResponseEntity.ok(protocolEntity.getId());
     }
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Protocol>> getAllProtocol() {
-        List<Protocol> protocolList = this.protocolDataProvider.findAll();
-        if (protocolList.isEmpty()) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(protocolList);
+    public ResponseEntity<List<ProtocolEntity>> getAllProtocol() {
+        List<ProtocolEntity> protocolEntityList = this.protocolDataProvider.findAll();
+        if (protocolEntityList.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(protocolEntityList);
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Protocol> getProtocolById(@PathVariable Long id) {
-        Optional<Protocol> optProtocol = this.protocolDataProvider.findById(id);
+    public ResponseEntity<ProtocolEntity> getProtocolById(@PathVariable Long id) {
+        Optional<ProtocolEntity> optProtocol = this.protocolDataProvider.findById(id);
         return optProtocol
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

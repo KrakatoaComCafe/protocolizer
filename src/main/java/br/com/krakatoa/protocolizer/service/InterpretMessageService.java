@@ -2,8 +2,8 @@ package br.com.krakatoa.protocolizer.service;
 
 import br.com.krakatoa.protocolizer.controller.dto.message.MessageDTO;
 import br.com.krakatoa.protocolizer.form.MessageForm;
-import br.com.krakatoa.protocolizer.repository.field.Field;
-import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
 
 import java.util.List;
@@ -20,16 +20,24 @@ public class InterpretMessageService {
     }
 
     public MessageDTO interpret(MessageForm messageForm) {
-        List<String> fieldList = this.converterService.hexToListOfBitmapPresent(messageForm.getBitmap());
+        List<FieldEntity> filteredFieldEntityEntities = this.getFilteredFields(messageForm);
 
-        Protocol protocol = this.protocolDataProvider.findOneByNameAndVersion(messageForm.getProtocol(), messageForm.getVersion());
-        List<Field> filteredFields = this.filterFieldDefinition(fieldList, protocol.getFields());
-
-        return new MessageDTO(messageForm, filteredFields);
+        return new MessageDTO(messageForm, filteredFieldEntityEntities);
     }
 
-    private List<Field> filterFieldDefinition(List<String> fieldList, List<Field> protocolFields) {
-        return protocolFields.stream()
+    public List<FieldEntity> getFilteredFields(MessageForm messageForm) {
+        return this.getFilteredFields(messageForm.getBitmap(), messageForm.getProtocol(), messageForm.getVersion());
+    }
+
+    public List<FieldEntity> getFilteredFields(String bitmap, String protocolName, String version) {
+        List<String> fieldList = this.converterService.hexToListOfBitmapPresent(bitmap);
+
+        ProtocolEntity protocolEntity = this.protocolDataProvider.findOneByNameAndVersion(protocolName, version);
+        return this.filterFieldDefinition(fieldList, protocolEntity.getFieldEntityEntities());
+    } 
+
+    private List<FieldEntity> filterFieldDefinition(List<String> fieldList, List<FieldEntity> protocolFieldEntityEntities) {
+        return protocolFieldEntityEntities.stream()
                 .filter(f -> fieldList.contains(f.getName()))
                 .collect(Collectors.toList());
     }

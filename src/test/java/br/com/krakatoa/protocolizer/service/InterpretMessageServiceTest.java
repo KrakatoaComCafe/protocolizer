@@ -3,8 +3,8 @@ package br.com.krakatoa.protocolizer.service;
 import br.com.krakatoa.protocolizer.controller.dto.message.MessageDTO;
 import br.com.krakatoa.protocolizer.form.MessageForm;
 import br.com.krakatoa.protocolizer.format.encoding.Encoding;
-import br.com.krakatoa.protocolizer.repository.field.Field;
-import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -41,9 +41,9 @@ class InterpretMessageServiceTest {
             Encoding encoding = Encoding.ASCII;
             MessageForm messageForm = mock(MessageForm.class);
             List<String> fieldList = Arrays.asList("Field002", "Field004");
-            Protocol protocol = mock(Protocol.class);
-            Field field = mock(Field.class);
-            List<Field> protocolFields = Arrays.asList(field, field, field);
+            ProtocolEntity protocolEntity = mock(ProtocolEntity.class);
+            FieldEntity fieldEntity = mock(FieldEntity.class);
+            List<FieldEntity> protocolFieldEntityEntities = Arrays.asList(fieldEntity, fieldEntity, fieldEntity);
 
             when(messageForm.getBitmap())
                     .thenReturn(bitmap);
@@ -54,18 +54,18 @@ class InterpretMessageServiceTest {
             when(messageForm.getVersion())
                     .thenReturn(protocolVersion);
             when(this.protocolDataProvider.findOneByNameAndVersion(messageForm.getProtocol(), messageForm.getVersion()))
-                    .thenReturn(protocol);
-            when(protocol.getFields())
-                    .thenReturn(protocolFields);
+                    .thenReturn(protocolEntity);
+            when(protocolEntity.getFieldEntityEntities())
+                    .thenReturn(protocolFieldEntityEntities);
             when(messageForm.getRawData())
                     .thenReturn(rawMessage);
             when(messageForm.getEncoding())
                     .thenReturn(encoding);
-            when(field.getLength())
+            when(fieldEntity.getLength())
                     .thenReturn(5)
                     .thenReturn(5)
                     .thenReturn(3);
-            when(field.getName())
+            when(fieldEntity.getName())
                     .thenReturn("Field002")
                     .thenReturn("Field003")
                     .thenReturn("Field004")

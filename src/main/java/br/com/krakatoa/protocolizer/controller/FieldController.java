@@ -1,7 +1,9 @@
 package br.com.krakatoa.protocolizer.controller;
 
-import br.com.krakatoa.protocolizer.repository.field.Field;
+import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinition;
+import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinitionFactory;
 import br.com.krakatoa.protocolizer.repository.field.FieldDataProvider;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,27 +20,32 @@ import java.util.Optional;
 public class FieldController {
 
     private final FieldDataProvider fieldDataProvider;
+    private final FieldDefinitionFactory fieldDefinitionFactory;
 
     @Autowired
     public FieldController(FieldDataProvider fieldDataProvider) {
+        this.fieldDefinitionFactory = new FieldDefinitionFactory();
         this.fieldDataProvider = fieldDataProvider;
     }
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Field>> getAllFields() {
-        List<Field> fieldList = this.fieldDataProvider.findAll();
+    public ResponseEntity<List<FieldDefinition>> getAllFields() {
+        List<FieldEntity> fieldEntityList = this.fieldDataProvider.findAll();
+        List<FieldDefinition> fieldDefinitionList = this.fieldDefinitionFactory.createList(fieldEntityList);
 
-        if (fieldList.isEmpty()) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(fieldList);
+        if (fieldDefinitionList.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(fieldDefinitionList);
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Field> getFieldById(@PathVariable Long id) {
-        Optional<Field> optField = this.fieldDataProvider.findById(id);
+    public ResponseEntity<FieldDefinition> getFieldById(@PathVariable Long id) {
+        Optional<FieldEntity> optFieldEntity = this.fieldDataProvider.findById(id);
+        if (optFieldEntity.isEmpty()) return ResponseEntity.notFound().build();
 
-        return optField
+        Optional<FieldDefinition> optFieldDefinition = this.fieldDefinitionFactory.create(optFieldEntity.get());
+        return optFieldDefinition
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
