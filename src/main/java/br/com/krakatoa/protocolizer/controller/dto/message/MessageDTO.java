@@ -2,7 +2,7 @@ package br.com.krakatoa.protocolizer.controller.dto.message;
 
 import br.com.krakatoa.protocolizer.form.MessageForm;
 import br.com.krakatoa.protocolizer.format.encoding.Encoding;
-import br.com.krakatoa.protocolizer.repository.field.Field;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -18,21 +18,21 @@ public class MessageDTO {
     private final String bitmap;
     private final List<FieldDTO> fields;
 
-    public MessageDTO(MessageForm messageForm, List<Field> fields) {
+    public MessageDTO(MessageForm messageForm, List<FieldEntity> fieldEntityEntities) {
         this.protocol = messageForm.getProtocol();
         this.version = messageForm.getVersion();
         this.encoding = messageForm.getEncoding();
         this.bitmap = messageForm.getBitmap();
         this.fields = new ArrayList<>();
-        this.insertFieldToList(messageForm.getRawData(), fields);
+        this.insertFieldToList(messageForm.getRawData(), fieldEntityEntities);
     }
 
-    private void insertFieldToList(String raw, List<Field> fields) {
+    private void insertFieldToList(String raw, List<FieldEntity> fieldEntityEntities) {
         int lastPos = 0;
-        for (Field field : fields) {
-            FieldDTO fieldDTO = new FieldDTO(field.getName(), raw.substring(lastPos, lastPos + field.getLength()));
+        for (FieldEntity fieldEntity : fieldEntityEntities) {
+            FieldDTO fieldDTO = new FieldDTO(fieldEntity.getName(), raw.substring(lastPos, lastPos + fieldEntity.getLength()));
             this.fields.add(fieldDTO);
-            lastPos += field.getLength();
+            lastPos += fieldEntity.getLength();
         }
     }
 

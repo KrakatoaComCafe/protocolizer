@@ -16,15 +16,15 @@ public class FieldDataProvider {
         this.fieldRepository = fieldRepository;
     }
 
-    public List<Field> saveAll(List<Field> fields) {
-        return this.fieldRepository.saveAll(fields);
+    public List<FieldEntity> saveAll(List<FieldEntity> fieldEntityEntities) {
+        return this.fieldRepository.saveAll(fieldEntityEntities);
     }
 
-    public List<Field> findAll() {
+    public List<FieldEntity> findAll() {
         return this.fieldRepository.findAll();
     }
 
-    public Optional<Field> findById(Long id) {
+    public Optional<FieldEntity> findById(Long id) {
         return this.fieldRepository.findById(id);
     }
 }

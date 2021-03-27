@@ -1,6 +1,6 @@
 package br.com.krakatoa.protocolizer.repository.field;
 
-import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
@@ -12,11 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
-public class Field {
+@Table(name="field")
+public class FieldEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,14 +27,14 @@ public class Field {
     private int length;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "protocol_id")
-    private Protocol protocol;
+    private ProtocolEntity protocol;
 
-    public Field() {
+    public FieldEntity() {
     }
 
-    public Field(String name, int length, Protocol protocol) {
+    public FieldEntity(String name, int length, ProtocolEntity protocolEntity) {
         this.name = name;
         this.length = length;
-        this.protocol = protocol;
+        this.protocol = protocolEntity;
     }
 }

@@ -1,8 +1,8 @@
 package br.com.krakatoa.protocolizer.form;
 
 import br.com.krakatoa.protocolizer.format.encoding.Encoding;
-import br.com.krakatoa.protocolizer.repository.field.Field;
-import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,15 +28,15 @@ public class ProtocolForm {
         this.fields = fields;
     }
 
-    public Protocol convertToProtocol() {
-        Protocol protocol = new Protocol(this.name, this.version, this.encoding);
-        List<Field> fieldList = this.fields.values()
+    public ProtocolEntity convertToProtocol() {
+        ProtocolEntity protocolEntity = new ProtocolEntity(this.name, this.version, this.encoding);
+        List<FieldEntity> fieldEntityList = this.fields.values()
                 .stream()
-                .map(fieldForm -> fieldForm.convertToField(protocol))
+                .map(fieldForm -> fieldForm.convertToField(protocolEntity))
                 .collect(Collectors.toList());
 
-        protocol.setFields(fieldList);
+        protocolEntity.setFieldEntityEntities(fieldEntityList);
 
-        return protocol;
+        return protocolEntity;
     }
 }

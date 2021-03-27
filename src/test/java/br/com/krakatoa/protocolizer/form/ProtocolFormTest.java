@@ -1,8 +1,8 @@
 package br.com.krakatoa.protocolizer.form;
 
 import br.com.krakatoa.protocolizer.format.encoding.Encoding;
-import br.com.krakatoa.protocolizer.repository.field.Field;
-import br.com.krakatoa.protocolizer.repository.protocol.Protocol;
+import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -26,14 +26,14 @@ class ProtocolFormTest {
         fieldFormMap.put("Field003", fieldForm);
 
         ProtocolForm protocolForm = new ProtocolForm(name, version, encoding, fieldFormMap);
-        Protocol protocol = protocolForm.convertToProtocol();
+        ProtocolEntity protocolEntity = protocolForm.convertToProtocol();
 
-        assertNotNull(protocol);
-        assertEquals("Some Crazy Ass Protocol", protocol.getName());
-        assertEquals("21.1", protocol.getVersion());
-        assertEquals(Encoding.ASCII, protocol.getEncoding());
-        List<Field> fieldList = protocol.getFields();
-        assertNotNull(fieldList);
-        assertEquals(2, fieldList.size());
+        assertNotNull(protocolEntity);
+        assertEquals("Some Crazy Ass Protocol", protocolEntity.getName());
+        assertEquals("21.1", protocolEntity.getVersion());
+        assertEquals(Encoding.ASCII, protocolEntity.getEncoding());
+        List<FieldEntity> fieldEntityList = protocolEntity.getFieldEntityEntities();
+        assertNotNull(fieldEntityList);
+        assertEquals(2, fieldEntityList.size());
     }
 }
