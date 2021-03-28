@@ -54,3 +54,6 @@ The following JSON can be sent to interpret the protocol defined above:
 ## Swagger:
 Any other entrypoint can be check here:
 - https://protocolizer.herokuapp.com/swagger-ui.html
+
+## Dude, what the heck you`re doing now?
+You can check it [here](https://share.clickup.com/b/h/6-13628508-2/bf4d531bf0b83d9)!
