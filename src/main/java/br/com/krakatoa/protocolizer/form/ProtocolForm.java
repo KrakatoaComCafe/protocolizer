@@ -35,7 +35,7 @@ public class ProtocolForm {
                 .map(fieldForm -> fieldForm.convertToField(protocolEntity))
                 .collect(Collectors.toList());
 
-        protocolEntity.setFieldEntityEntities(fieldEntityList);
+        protocolEntity.setFieldEntityList(fieldEntityList);
 
         return protocolEntity;
     }

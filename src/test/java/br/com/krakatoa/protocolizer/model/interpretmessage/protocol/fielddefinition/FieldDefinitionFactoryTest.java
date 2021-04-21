@@ -40,7 +40,7 @@ class FieldDefinitionFactoryTest {
 
         doReturn(Collections.emptyList())
                 .when(protocolEntity)
-                .getFieldEntityEntities();
+                .getFieldEntityList();
 
         List<FieldDefinition> results = this.fieldDefinitionFactory.createList(protocolEntity);
 
@@ -57,7 +57,7 @@ class FieldDefinitionFactoryTest {
 
         doReturn(fieldEntityList)
                 .when(protocolEntity)
-                .getFieldEntityEntities();
+                .getFieldEntityList();
         doReturn("Field002").doReturn("Field003")
                 .when(fieldEntity)
                 .getName();

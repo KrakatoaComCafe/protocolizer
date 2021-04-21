@@ -32,7 +32,7 @@ class ProtocolFormTest {
         assertEquals("Some Crazy Ass Protocol", protocolEntity.getName());
         assertEquals("21.1", protocolEntity.getVersion());
         assertEquals(Encoding.ASCII, protocolEntity.getEncoding());
-        List<FieldEntity> fieldEntityList = protocolEntity.getFieldEntityEntities();
+        List<FieldEntity> fieldEntityList = protocolEntity.getFieldEntityList();
         assertNotNull(fieldEntityList);
         assertEquals(2, fieldEntityList.size());
     }
