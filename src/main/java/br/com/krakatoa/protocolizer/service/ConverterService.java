@@ -68,7 +68,6 @@ public class ConverterService {
             char bit = binaryBitmap.charAt(i);
             if (bit == '1') presentFieldList.add(String.format(NAME_FORMAT, i + 1));
         }
-
         return presentFieldList;
     }
 
