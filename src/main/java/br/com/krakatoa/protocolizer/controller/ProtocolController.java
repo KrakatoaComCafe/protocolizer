@@ -39,7 +39,7 @@ public class ProtocolController {
 
         //todo use json format in H2
         this.protocolDataProvider.save(protocolEntity);
-        this.fieldDataProvider.saveAll(protocolEntity.getFieldEntityEntities());
+        this.fieldDataProvider.saveAll(protocolEntity.getFieldEntityList());
 
         return ResponseEntity.ok(protocolEntity.getId());
     }

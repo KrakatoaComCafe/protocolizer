@@ -34,7 +34,7 @@ public class ProtocolEntity {
     private Encoding encoding;
     @OneToMany(mappedBy = "protocol", cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
-    private List<FieldEntity> fieldEntityEntities = new ArrayList<>();
+    private List<FieldEntity> fieldEntityList = new ArrayList<>();
 
     public ProtocolEntity() {
     }

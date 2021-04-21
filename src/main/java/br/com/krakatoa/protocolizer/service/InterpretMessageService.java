@@ -30,10 +30,10 @@ public class InterpretMessageService {
     }
 
     public List<FieldEntity> getFilteredFields(String bitmap, String protocolName, String version) {
-        List<String> fieldList = this.converterService.hexToListOfBitmapPresent(bitmap);
+        List<String> fieldsActivated = this.converterService.hexToListOfBitmapPresent(bitmap);
 
         ProtocolEntity protocolEntity = this.protocolDataProvider.findOneByNameAndVersion(protocolName, version);
-        return this.filterFieldDefinition(fieldList, protocolEntity.getFieldEntityEntities());
+        return this.filterFieldDefinition(fieldsActivated, protocolEntity.getFieldEntityList());
     } 
 
     private List<FieldEntity> filterFieldDefinition(List<String> fieldList, List<FieldEntity> protocolFieldEntityEntities) {

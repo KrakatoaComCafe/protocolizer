@@ -14,7 +14,7 @@ public class FieldDefinitionFactory {
     public List<FieldDefinition> createList(ProtocolEntity protocolEntity) {
         if (protocolEntity == null) return Collections.emptyList();
 
-        return protocolEntity.getFieldEntityEntities().stream()
+        return protocolEntity.getFieldEntityList().stream()
                 .map(f -> new FieldDefinition(f.getName(), f.getLength()))
                 .collect(Collectors.toList());
     }
