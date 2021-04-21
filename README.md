@@ -15,20 +15,20 @@ An example of a JSON to be sent is showed bellow:
     "encoding": "ASCII",
     "fields": {
         "field002": {
-            "name": "Field002",
+            "name": "field002",
             "length": 5
         },
         "field003": {
-            "name": "Field003",
+            "name": "field003",
             "length": 2
         },
         "field004": {
-            "name": "Field004",
+            "name": "field004",
             "length": 3
         }
         ,
         "field005": {
-            "name": "Field005",
+            "name": "field005",
             "length": 4
         }
     }
