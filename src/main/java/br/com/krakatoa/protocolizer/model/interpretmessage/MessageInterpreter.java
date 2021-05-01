@@ -4,7 +4,6 @@ import br.com.krakatoa.protocolizer.model.interpretmessage.messagefields.Message
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.Protocol;
 
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 public class MessageInterpreter {
 
@@ -27,14 +26,8 @@ public class MessageInterpreter {
 
         StringBuilder sb = new StringBuilder();
         messageValues.getFieldList()
-            .forEach(getStringStringBiConsumer(newFieldValues, sb));
+            .forEach((key, value) -> sb.append(newFieldValues.getOrDefault(key, value)));
 
         return sb.toString();
-    }
-
-    private BiConsumer<String, String> getStringStringBiConsumer(Map<String, String> newFieldValues, StringBuilder sb) {
-        return (key, value) -> {
-            sb.append(newFieldValues.getOrDefault(key, value));
-        };
     }
 }
