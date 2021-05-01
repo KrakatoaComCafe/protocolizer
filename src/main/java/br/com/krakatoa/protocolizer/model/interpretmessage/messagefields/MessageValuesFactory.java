@@ -2,6 +2,7 @@ package br.com.krakatoa.protocolizer.model.interpretmessage.messagefields;
 
 import br.com.krakatoa.protocolizer.form.MessageChangeForm;
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinition;
+import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FixedDefinition;
 import br.com.krakatoa.protocolizer.service.ConverterService;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class MessageValuesFactory {
 
     private List<FieldDefinition> filterFieldDefinition(List<String> fieldActivatedList, List<FieldDefinition> protocolFieldDefinitions) {
         return protocolFieldDefinitions.stream()
-                .filter(f -> fieldActivatedList.contains(f.getName()))
-                .collect(Collectors.toList());
+            .filter(f -> fieldActivatedList.contains(f.getName()))
+            .collect(Collectors.toList());
     }
 }

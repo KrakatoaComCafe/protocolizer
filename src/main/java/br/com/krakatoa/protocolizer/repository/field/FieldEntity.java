@@ -1,11 +1,14 @@
 package br.com.krakatoa.protocolizer.repository.field;
 
+import br.com.krakatoa.protocolizer.format.FieldType;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +27,8 @@ public class FieldEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
+    private FieldType type;
     private int length;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "protocol_id")
@@ -32,8 +37,9 @@ public class FieldEntity {
     public FieldEntity() {
     }
 
-    public FieldEntity(String name, int length, ProtocolEntity protocolEntity) {
+    public FieldEntity(String name, FieldType type, int length, ProtocolEntity protocolEntity) {
         this.name = name;
+        this.type = type;
         this.length = length;
         this.protocol = protocolEntity;
     }

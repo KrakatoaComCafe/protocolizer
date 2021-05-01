@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 public class ConverterService {
 
-    private static final String NAME_FORMAT = "Field%03d";
+    private static final String NAME_FORMAT = "field%03d";
     private static final short HEXADECIMAL_RADIX = 16;
     private static final short BINARY_RADIX = 2;
     private static final short BITMAP_IN_BITS_MAX_LENGTH = 64;

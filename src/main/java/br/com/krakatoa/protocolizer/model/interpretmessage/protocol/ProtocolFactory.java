@@ -9,7 +9,7 @@ import java.util.List;
 public class ProtocolFactory {
     //TODO take care of the NullPointerException when protocolEntity is null
     public Protocol create(ProtocolEntity protocolEntity, List<FieldDefinition> fieldDefinitionList) {
-        if(fieldDefinitionList == null) fieldDefinitionList = Collections.emptyList();
+        if (fieldDefinitionList == null) fieldDefinitionList = Collections.emptyList();
 
         return new Protocol(protocolEntity.getName(), protocolEntity.getVersion(), fieldDefinitionList);
     }

@@ -8,7 +8,6 @@ import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.ProtocolFact
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinition;
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinitionFactory;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
-import br.com.krakatoa.protocolizer.service.ConverterService;
 
 import java.util.List;
 

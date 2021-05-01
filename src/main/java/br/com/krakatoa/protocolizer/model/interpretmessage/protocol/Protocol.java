@@ -10,11 +10,11 @@ public class Protocol {
 
     private final String name;
     private final String version;
-    private final List<FieldDefinition> fieldDefinitionList;
+    private final List<FieldDefinition> FieldDefinitionList;
 
-    public Protocol(String name, String version, List<FieldDefinition> fieldDefinitionList) {
+    public Protocol(String name, String version, List<FieldDefinition> FieldDefinitionList) {
         this.name = name;
         this.version = version;
-        this.fieldDefinitionList = fieldDefinitionList;
+        this.FieldDefinitionList = FieldDefinitionList;
     }
 }
