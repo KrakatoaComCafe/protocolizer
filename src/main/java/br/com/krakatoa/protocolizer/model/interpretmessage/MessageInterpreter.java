@@ -10,22 +10,23 @@ public class MessageInterpreter {
     private final Protocol protocol;
     private final String bitmap;
     private final String rawData;
-    private MessageValues fieldList;
+    private MessageValues messageValues;
     private Map<String, String> fieldsWithNewValue;
 
     public MessageInterpreter(Protocol protocol, String bitmap, String rawData, MessageValues messageValues, Map<String, String> fieldsWithNewValue) {
         this.protocol = protocol;
         this.bitmap = bitmap;
         this.rawData = rawData;
-        this.fieldList = messageValues;
+        this.messageValues = messageValues;
         this.fieldsWithNewValue = fieldsWithNewValue;
     }
 
     public String generateRawData() {
-        Map<String, String> newFieldValues = this.fieldList.generateFieldsWithNewValue(this.fieldsWithNewValue);
+        Map<String, String> newFieldValues = this.messageValues.generateFieldsWithNewValue(this.fieldsWithNewValue);
 
         StringBuilder sb = new StringBuilder();
-        newFieldValues.forEach((key, value) -> sb.append(value));
+        messageValues.getFieldList()
+            .forEach((key, value) -> sb.append(newFieldValues.getOrDefault(key, value)));
 
         return sb.toString();
     }

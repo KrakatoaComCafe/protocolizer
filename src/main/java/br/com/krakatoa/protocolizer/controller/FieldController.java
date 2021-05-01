@@ -1,6 +1,7 @@
 package br.com.krakatoa.protocolizer.controller;
 
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinition;
+import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FixedDefinition;
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinitionFactory;
 import br.com.krakatoa.protocolizer.repository.field.FieldDataProvider;
 import br.com.krakatoa.protocolizer.repository.field.FieldEntity;

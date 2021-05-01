@@ -11,25 +11,32 @@ import java.util.stream.Collectors;
 
 public class FieldDefinitionFactory {
 
+
     public List<FieldDefinition> createList(ProtocolEntity protocolEntity) {
         if (protocolEntity == null) return Collections.emptyList();
 
         return protocolEntity.getFieldEntityList().stream()
-                .map(f -> new FieldDefinition(f.getName(), f.getLength()))
-                .collect(Collectors.toList());
+            .map(f -> new FixedDefinition(f.getName(), f.getLength()))
+            .collect(Collectors.toList());
     }
 
     public Optional<FieldDefinition> create(FieldEntity fieldEntity) {
-        if(Objects.isNull(fieldEntity)) return Optional.empty();
+        if (Objects.isNull(fieldEntity)) return Optional.empty();
 
-        return Optional.of(new FieldDefinition(fieldEntity.getName(), fieldEntity.getLength()));
+        switch (fieldEntity.getType()) {
+            case FIXED:
+                return Optional.of(new FixedDefinition(fieldEntity.getName(), fieldEntity.getLength()));
+            default:
+                //TODO add logger here
+                throw new IllegalStateException("Unexpected value: " + fieldEntity.getType());
+        }
     }
-
     public List<FieldDefinition> createList(List<FieldEntity> fieldEntityList) {
-        if(Objects.isNull(fieldEntityList)) return Collections.emptyList();
+        if (Objects.isNull(fieldEntityList)) return Collections.emptyList();
 
         return fieldEntityList.stream()
-                .map(f -> new FieldDefinition(f.getName(), f.getLength()))
-                .collect(Collectors.toList());
+            .map(f -> this.create(f).get())
+            .collect(Collectors.toList());
     }
+
 }

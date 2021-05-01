@@ -1,6 +1,7 @@
 package br.com.krakatoa.protocolizer.model.interpretmessage.protocol;
 
 import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FieldDefinition;
+import br.com.krakatoa.protocolizer.model.interpretmessage.protocol.fielddefinition.FixedDefinition;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,8 +27,8 @@ class ProtocolFactoryTest {
     @Test
     @DisplayName("Throw NullPointerException when ProtocolEntity is null")
     void given_NullProtocolEntity_When_Create_ThenThrowNullPointerException() {
-        FieldDefinition fieldDefinition = mock(FieldDefinition.class);
-        List<FieldDefinition> fieldDefinitionList = Arrays.asList(fieldDefinition, fieldDefinition);
+        FixedDefinition fixedDefinition = mock(FixedDefinition.class);
+        List<FieldDefinition> fieldDefinitionList = Arrays.asList(fixedDefinition, fixedDefinition);
 
         assertThrows(NullPointerException.class, () -> {
             this.protocolFactory.create(null, fieldDefinitionList);
@@ -40,11 +41,11 @@ class ProtocolFactoryTest {
         ProtocolEntity protocolEntity = mock(ProtocolEntity.class);
 
         doReturn("FakeISO")
-                .when(protocolEntity)
-                .getName();
+            .when(protocolEntity)
+            .getName();
         doReturn("21.1")
-                .when(protocolEntity)
-                .getVersion();
+            .when(protocolEntity)
+            .getVersion();
 
         Protocol result = this.protocolFactory.create(protocolEntity, null);
 
@@ -59,15 +60,15 @@ class ProtocolFactoryTest {
     @DisplayName("Create Protocol when use Protocol Entity and a list of FieldDefinition")
     void given_ProtocolEntityAndFieldDefinitionList_When_Create_Then_ReturnProtocol() {
         ProtocolEntity protocolEntity = mock(ProtocolEntity.class);
-        FieldDefinition fieldDefinition = mock(FieldDefinition.class);
-        List<FieldDefinition> fieldDefinitionList = Arrays.asList(fieldDefinition, fieldDefinition);
+        FixedDefinition fixedDefinition = mock(FixedDefinition.class);
+        List<FieldDefinition> fieldDefinitionList = Arrays.asList(fixedDefinition, fixedDefinition);
 
         doReturn("FakeISO")
-                .when(protocolEntity)
-                .getName();
+            .when(protocolEntity)
+            .getName();
         doReturn("21.1")
-                .when(protocolEntity)
-                .getVersion();
+            .when(protocolEntity)
+            .getVersion();
 
         Protocol result = this.protocolFactory.create(protocolEntity, fieldDefinitionList);
 
