@@ -4,8 +4,8 @@ Protocolizer ia an ISO8583 message interpreter, or it will be when it is finish.
 Current, it only accepts fixed length messages.
 
 ## Added a Protocol
-Initially, a protocol needs to be added, using POST, in the URL bellow:
-- https://protocolizer.herokuapp.com/protocol
+Initially, a protocolDefinition needs to be added, using POST, in the URL bellow:
+- https://protocolizer.herokuapp.com/protocolDefinition
 
 An example of a JSON to be sent is showed bellow:
 ```sh
@@ -36,14 +36,14 @@ An example of a JSON to be sent is showed bellow:
 ```
 
 ## Interpret Message
-After the protocol is posted, we can interpret a message.
+After the protocolDefinition is posted, we can interpret a message.
 The message needs to be sent as POST in the URL bellow:
 - https://protocolizer.herokuapp.com//message/interpret
 
-The following JSON can be sent to interpret the protocol defined above:
+The following JSON can be sent to interpret the protocolDefinition defined above:
 ```sh
 {
-    "protocol": "ISO-Fake",
+    "protocolDefinition": "ISO-Fake",
     "version": "21.1",
     "encoding": "ASCII",
     "bitmap": "5000000000000000",

@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
-@Table(name="field")
+@Table(name = "field")
 public class FieldEntity {
 
     @Id
@@ -30,6 +30,8 @@ public class FieldEntity {
     @Enumerated(EnumType.STRING)
     private FieldType type;
     private int length;
+    private int maxLength;
+    private int minLength;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "protocol_id")
     private ProtocolEntity protocol;
@@ -37,10 +39,12 @@ public class FieldEntity {
     public FieldEntity() {
     }
 
-    public FieldEntity(String name, FieldType type, int length, ProtocolEntity protocolEntity) {
+    public FieldEntity(String name, FieldType type, int length, int maxLength, int minLength, ProtocolEntity protocolEntity) {
         this.name = name;
         this.type = type;
         this.length = length;
+        this.maxLength = maxLength;
+        this.minLength = minLength;
         this.protocol = protocolEntity;
     }
 }

@@ -1,12 +1,9 @@
 package br.com.krakatoa.protocolizer.controller;
 
-import br.com.krakatoa.protocolizer.controller.dto.message.MessageDTO;
-import br.com.krakatoa.protocolizer.form.MessageChangeForm;
-import br.com.krakatoa.protocolizer.form.MessageForm;
-import br.com.krakatoa.protocolizer.model.interpretmessage.MessageInterpretFactory;
-import br.com.krakatoa.protocolizer.model.interpretmessage.MessageInterpreter;
-import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
-import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
+import br.com.krakatoa.protocolizer.entity.model.message.Message;
+import br.com.krakatoa.protocolizer.entity.response.message.MessageResponse;
+import br.com.krakatoa.protocolizer.entity.form.MessageChangeForm;
+import br.com.krakatoa.protocolizer.entity.form.MessageForm;
 import br.com.krakatoa.protocolizer.service.InterpretMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,31 +18,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/message")
 public class MessageController {
 
-    private final ProtocolDataProvider protocolDataProvider;
     private final InterpretMessageService interpretMessageService;
-    private final MessageInterpretFactory interpretMessageFactory;
 
     @Autowired
-    public MessageController(ProtocolDataProvider protocolDataProvider, InterpretMessageService interpretMessageService) {
-        this.protocolDataProvider = protocolDataProvider;
+    public MessageController(InterpretMessageService interpretMessageService) {
         this.interpretMessageService = interpretMessageService;
-        this.interpretMessageFactory = new MessageInterpretFactory();
     }
 
     @PostMapping("/interpret")
     @ResponseBody
-    public ResponseEntity<MessageDTO> interpretMessage(@RequestBody @Validated MessageForm messageForm) {
-        MessageDTO messageDTO = this.interpretMessageService.interpret(messageForm);
-        return ResponseEntity.ok(messageDTO);
+    public ResponseEntity<MessageResponse> interpretMessage(@RequestBody @Validated MessageForm messageForm) {
+        Message message = new Message.Factory().create(messageForm);
+        MessageResponse messageResponse = this.interpretMessageService.interpret(message);
+
+        return ResponseEntity.ok(messageResponse);
     }
 
     @PostMapping("/replace")
     @ResponseBody
     public ResponseEntity<String> replaceMessage(@RequestBody MessageChangeForm messageChangeForm) {
-        ProtocolEntity protocolEntity = this.protocolDataProvider.findOneByNameAndVersion(messageChangeForm.getProtocolName(), messageChangeForm.getProtocolVersion());
-
-        MessageInterpreter messageInterpreter = this.interpretMessageFactory.create(protocolEntity, messageChangeForm);
-        String response = messageInterpreter.generateRawData();
+        String response = this.interpretMessageService.replace(messageChangeForm);
 
         return ResponseEntity.ok(response);
     }
