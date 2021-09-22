@@ -3,6 +3,7 @@ package br.com.krakatoa.protocolizer.repository.protocol;
 import br.com.krakatoa.protocolizer.format.encoding.Encoding;
 import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;

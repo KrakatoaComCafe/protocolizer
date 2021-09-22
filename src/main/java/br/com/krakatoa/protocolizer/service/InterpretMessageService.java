@@ -1,44 +1,56 @@
 package br.com.krakatoa.protocolizer.service;
 
-import br.com.krakatoa.protocolizer.controller.dto.message.MessageDTO;
-import br.com.krakatoa.protocolizer.form.MessageForm;
+import br.com.krakatoa.protocolizer.entity.form.MessageChangeForm;
+import br.com.krakatoa.protocolizer.entity.form.MessageForm;
+import br.com.krakatoa.protocolizer.entity.model.field.Field;
+import br.com.krakatoa.protocolizer.entity.model.field.FieldFactory;
+import br.com.krakatoa.protocolizer.entity.model.interpretmessage.MessageInterpretFactory;
+import br.com.krakatoa.protocolizer.entity.model.interpretmessage.MessageInterpreter;
+import br.com.krakatoa.protocolizer.entity.model.message.Message;
+import br.com.krakatoa.protocolizer.entity.response.message.MessageResponse;
 import br.com.krakatoa.protocolizer.repository.field.FieldEntity;
-import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
 import br.com.krakatoa.protocolizer.repository.protocol.ProtocolDataProvider;
+import br.com.krakatoa.protocolizer.repository.protocol.ProtocolEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Service
 public class InterpretMessageService {
 
     private final ProtocolDataProvider protocolDataProvider;
-    private final ConverterService converterService;
+    private final ConverterAction converterAction;
+    private final FieldAction fieldAction;
+    private final FieldFactory fieldFactory;
+    private final MessageInterpretFactory messageInterpretFactory;
 
-    public InterpretMessageService(ProtocolDataProvider protocolDataProvider, ConverterService converterService) {
+    @Autowired
+    public InterpretMessageService(ProtocolDataProvider protocolDataProvider, ConverterAction converterAction,
+                                   FieldAction fieldAction, FieldFactory fieldFactory,
+                                   MessageInterpretFactory messageInterpretFactory) {
         this.protocolDataProvider = protocolDataProvider;
-        this.converterService = converterService;
+        this.converterAction = converterAction;
+        this.fieldAction = fieldAction;
+        this.fieldFactory = fieldFactory;
+        this.messageInterpretFactory = messageInterpretFactory;
     }
 
-    public MessageDTO interpret(MessageForm messageForm) {
-        List<FieldEntity> filteredFieldEntityEntities = this.getFilteredFields(messageForm);
+    public MessageResponse interpret(Message message) {
+        List<String> fieldsActivated = this.converterAction.hexToListOfBitmapPresent(message.getBitmap());
+        List<FieldEntity> filteredFields = this.fieldAction
+            .getFilteredFields(message.getProtocol(), message.getVersion(), fieldsActivated);
 
-        return new MessageDTO(messageForm, filteredFieldEntityEntities);
+        List<Field> fieldList = this.fieldFactory.createList(filteredFields);
+
+        return new MessageResponse.Factory().create(message, fieldList);
     }
 
-    public List<FieldEntity> getFilteredFields(MessageForm messageForm) {
-        return this.getFilteredFields(messageForm.getBitmap(), messageForm.getProtocol(), messageForm.getVersion());
-    }
+    public String replace(MessageChangeForm messageChangeForm) {
+        ProtocolEntity protocolEntity = this.protocolDataProvider
+            .findOneByNameAndVersion(messageChangeForm.getProtocolName(), messageChangeForm.getProtocolVersion());
 
-    public List<FieldEntity> getFilteredFields(String bitmap, String protocolName, String version) {
-        List<String> fieldsActivated = this.converterService.hexToListOfBitmapPresent(bitmap);
-
-        ProtocolEntity protocolEntity = this.protocolDataProvider.findOneByNameAndVersion(protocolName, version);
-        return this.filterFieldDefinition(fieldsActivated, protocolEntity.getFieldEntityList());
-    } 
-
-    private List<FieldEntity> filterFieldDefinition(List<String> fieldList, List<FieldEntity> protocolFieldEntityEntities) {
-        return protocolFieldEntityEntities.stream()
-                .filter(f -> fieldList.contains(f.getName()))
-                .collect(Collectors.toList());
+        MessageInterpreter messageInterpreter = this.messageInterpretFactory.create(protocolEntity, messageChangeForm);
+        return messageInterpreter.generateRawData();
     }
 }
