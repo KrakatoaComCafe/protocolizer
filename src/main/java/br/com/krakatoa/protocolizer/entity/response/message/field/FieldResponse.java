@@ -5,4 +5,6 @@ public interface FieldResponse {
     String getName();
 
     String getValue();
+
+    int getFieldLength();
 }

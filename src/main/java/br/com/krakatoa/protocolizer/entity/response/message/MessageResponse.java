@@ -29,7 +29,7 @@ public interface MessageResponse {
 
                 FieldResponse fieldResponse = new FieldResponseFactory().create(field, rawData, lastPos);
                 fields.add(fieldResponse);
-                lastPos += field.getLength();
+                lastPos += fieldResponse.getFieldLength();
             }
             return fields;
         }

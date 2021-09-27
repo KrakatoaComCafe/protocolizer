@@ -14,4 +14,10 @@ public class VarResponse implements FieldResponse {
         this.length = length;
         this.value = value;
     }
+
+
+    @Override
+    public int getFieldLength() {
+        return this.length.length() + this.value.length();
+    }
 }

@@ -6,7 +6,7 @@ public interface Field {
 
     String getName();
 
-    int getLength();
+    int getDataLength();
 
     FieldType getFieldType();
 }

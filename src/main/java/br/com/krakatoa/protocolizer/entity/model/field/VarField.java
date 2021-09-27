@@ -16,7 +16,7 @@ class VarField implements Field{
     }
 
     @Override
-    public int getLength() {
+    public int getDataLength() {
         return this.vli + this.length;
     }
 
@@ -33,11 +33,11 @@ class VarField implements Field{
                 throw new VarFieldException("Unexpected value [" + this.vli + "]");
         }
     }
-}
 
-class VarFieldException extends RuntimeException {
+    static class VarFieldException extends RuntimeException {
 
-    public VarFieldException(String message) {
-        super(message);
+        public VarFieldException(String message) {
+            super(message);
+        }
     }
 }
