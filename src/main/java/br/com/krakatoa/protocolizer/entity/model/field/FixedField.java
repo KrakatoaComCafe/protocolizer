@@ -18,7 +18,7 @@ class FixedField implements Field {
     }
 
     @Override
-    public int getLength() {
+    public int getDataLength() {
         return length;
     }
 

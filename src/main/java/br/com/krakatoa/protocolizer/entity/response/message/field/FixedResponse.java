@@ -13,4 +13,8 @@ public class FixedResponse implements FieldResponse {
         this.value = value;
     }
 
+    @Override
+    public int getFieldLength() {
+        return this.value.length();
+    }
 }
