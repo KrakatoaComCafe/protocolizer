@@ -1,7 +1,7 @@
 # Protocolizer
 ## What it is?
 Protocolizer ia an ISO8583 message interpreter, or it will be when it is finish.
-Current, it only accepts fixed length messages.
+Current, it only accepts fixed and var length messages.
 
 ## Added a Protocol
 Initially, a protocolDefinition needs to be added, using POST, in the URL bellow:
@@ -16,20 +16,47 @@ An example of a JSON to be sent is showed bellow:
     "fields": {
         "field002": {
             "name": "field002",
+            "type": "FIXED",
             "length": 5
         },
         "field003": {
             "name": "field003",
+            "type": "FIXED",
             "length": 2
         },
         "field004": {
             "name": "field004",
+            "type": "FIXED",
             "length": 3
-        }
-        ,
+        },
         "field005": {
             "name": "field005",
+            "type": "FIXED",
             "length": 4
+        },
+        "field006": {
+            "name": "field006",
+            "type": "LLVAR",
+            "maxLength": 10,
+            "minLength": 4
+        },
+        "field007": {
+            "name": "field007",
+            "type": "LLVAR",
+            "maxLength": 4,
+            "minLength": 2
+        },
+        "field008": {
+            "name": "field008",
+            "type": "LLLVAR",
+            "maxLength": 150,
+            "minLength": 120
+        },
+        "field009": {
+            "name": "field009",
+            "type": "LLLVAR",
+            "maxLength": 450,
+            "minLength": 320
         }
     }
 }
@@ -38,16 +65,16 @@ An example of a JSON to be sent is showed bellow:
 ## Interpret Message
 After the protocolDefinition is posted, we can interpret a message.
 The message needs to be sent as POST in the URL bellow:
-- https://protocolizer.herokuapp.com//message/interpret
+- https://protocolizer.herokuapp.com/message/interpret
 
 The following JSON can be sent to interpret the protocolDefinition defined above:
 ```sh
 {
-    "protocolDefinition": "ISO-Fake",
+    "protocol": "ISO-Fake",
     "version": "21.1",
     "encoding": "ASCII",
-    "bitmap": "5000000000000000",
-    "rawData": "123451234"
+    "bitmap": "5780000000000000",
+    "rawData": "1234512306123456031231401234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789038012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
 }
 ```
 
