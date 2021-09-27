@@ -4,7 +4,7 @@ Protocolizer ia an ISO8583 message interpreter, or it will be when it is finish.
 
 Current, it only accepts fixed and var length messages.
 
-## Added a Protocol
+## Add a Protocol
 Initially, a protocolDefinition needs to be added, using POST, in the URL bellow:
 - https://protocolizer.herokuapp.com/protocolDefinition
 
